@@ -1,19 +1,34 @@
-# canvas
+# day-love
 
-## Project setup
-```
-yarn install
+An Electron application with Vue
+
+## Recommended IDE Setup
+
+- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+## Project Setup
+
+### Install
+
+```bash
+$ npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
+### Development
+
+```bash
+$ npm run dev
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### Build
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```bash
+# For windows
+$ npm run build:win
+
+# For macOS
+$ npm run build:mac
+
+# For Linux
+$ npm run build:linux
+```
