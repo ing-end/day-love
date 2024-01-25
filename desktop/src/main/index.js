@@ -1,11 +1,12 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { is } from '@electron-toolkit/utils';
 
+var HomeWin = null;
 function createWindow() {
-	const HomeWin = new BrowserWindow({
-		width: 900,
-		height: 700,
+	HomeWin = new BrowserWindow({
+		height: 900,
+		width: 1200,
 		show: false,
 		frame: false,
 		autoHideMenuBar: true,
@@ -20,6 +21,14 @@ function createWindow() {
 		HomeWin.show();
 	});
 
+	HomeWin.on('maximize', () => {
+		HomeWin.webContents.send('update_size_state', true);
+	});
+
+	HomeWin.on('unmaximize', () => {
+		HomeWin.webContents.send('update_size_state', false);
+	});
+
 	if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
 		HomeWin.loadURL(process.env['ELECTRON_RENDERER_URL']);
 	} else {
@@ -28,6 +37,18 @@ function createWindow() {
 }
 app.whenReady().then(() => {
 	createWindow();
+	ipcMain.on('app_maximize', () => {
+		HomeWin.maximize();
+	});
+	ipcMain.on('app_unmaximize', () => {
+		HomeWin.unmaximize();
+	});
+	ipcMain.on('app_minimize', () => {
+		HomeWin.minimize();
+	});
+	ipcMain.on('app_quit', () => {
+		app.quit();
+	});
 });
 
 app.on('window-all-closed', () => {
